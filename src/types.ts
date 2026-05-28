@@ -1,4 +1,4 @@
-export interface photo {
+export interface Photo {
     id:number
     titre:string
     file:string
@@ -8,9 +8,14 @@ export interface photo {
     size:string
     width:string
     height:string
+    url:urlphoto
 }
 
-export interface reponsePhoto{
+export interface ReponsePhoto{
     type:string
-    photo:photo
+    photo:Photo
+}
+
+export interface urlphoto{
+    href:string
 }
