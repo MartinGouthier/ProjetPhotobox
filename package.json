@@ -1,14 +1,14 @@
 {
-  "name": "ProjetPhotobox",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc"
-  },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "esbuild": "0.25.12"
   },
-  "private": true
+  "scripts": {
+    "check": "npx tsc --noEmit --watch",
+    "build": "esbuild src/index.ts --bundle  --sourcemap --target=es2015 --outfile=dist/index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "marked": "^17.0.0",
+    "typescript": "^5.9.3"
+  }
 }
