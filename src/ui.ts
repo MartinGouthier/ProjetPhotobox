@@ -1,20 +1,17 @@
 import Handlebars from 'handlebars';
 import { Photo, ReponseCategorie, Commentaire } from './types';
+import {BASE_URL} from "./config";
 
 const sourceTemplate = `
 <article>
-    <h2>{{titre}}</h2>
+    <h1>Photo : {{id}}</h1>
 
-    <img src="https://webetu.iutnc.univ-lorraine.fr{{url.href}}" alt="Photo de {{titre}}">
-
-    <ul>
-        <li>Type : {{type}}</li>
-        <li>Format : {{format}}</li>
-        <li>Dimensions : {{width}} x {{height}} px</li>
-        <li>Poids : {{size}} octets</li>
-    </ul>
-
+    <img src="${BASE_URL}{{url.href}}" alt="Photo de {{titre}}">
+    
+    <h4>{{titre}}</h4>
     <p>{{descr}}</p>
+    <p>{{type}}, {{width}} x {{height}}</p>
+
 </article>
 `;
 
@@ -28,7 +25,7 @@ export function displayPicture(photo: Photo): void {
 
 export function displayCategory(categorieData: ReponseCategorie): void {
     const conteneur = document.querySelector('#la_categorie');
-    conteneur!.innerHTML = `Catégorie : ${categorieData.categorie.nom}`;
+    conteneur!.innerHTML = `<h4>Catégorie : ${categorieData.categorie.nom}</h4>`;
 }
 
 export function displayComments(commentaires: Commentaire[]): void {
