@@ -1,12 +1,23 @@
-import { loadPicture } from "./photoloader";
-import { displayPicture } from "./ui"; 
+import { loadPicture, loadResource } from "./photoloader";
+import { displayPicture, displayCategory, displayComments } from "./ui";
 
 async function getPicture(id: number): Promise<void> {
     try {
         const reponse = await loadPicture(id);
-        displayPicture(reponse);
+        
+        // Affichage photo
+        displayPicture(reponse.photo);
+
+        // Récupération et affichage catégorie
+        const cat = await loadResource(reponse.links.categorie.href);
+        displayCategory(cat);
+
+        // Récupération et affichage commentaires
+        const com = await loadResource(reponse.links.comments.href);
+        displayComments(com.comments);
+
     } catch (erreur) {
-        console.error(`Aucune photo trouvée pour ${id}`);
+        console.error(`Erreur : ${erreur}`);
     }
 }
 

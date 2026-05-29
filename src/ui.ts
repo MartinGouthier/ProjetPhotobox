@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { Photo } from './types';
+import { Photo, ReponseCategorie, Commentaire } from './types';
 
 const sourceTemplate = `
 <article>
@@ -23,7 +23,21 @@ const template = Handlebars.compile(sourceTemplate);
 export function displayPicture(photo: Photo): void {
     const conteneur = document.querySelector('#la_photo');
 
-    // On injecte l'objet photo dans le template 
     conteneur!.innerHTML = template(photo);
+}
 
+export function displayCategory(categorieData: ReponseCategorie): void {
+    const conteneur = document.querySelector('#la_categorie');
+    conteneur!.innerHTML = `Catégorie : ${categorieData.categorie.nom}`;
+}
+
+export function displayComments(commentaires: Commentaire[]): void {
+    const conteneur = document.querySelector('#les_commentaires')!;
+    
+    let html = '';
+    for (const c of commentaires) {
+        html += `<li>${c.pseudo} : ${c.content}</li>`;
+    }
+    
+    conteneur.innerHTML = html;
 }
