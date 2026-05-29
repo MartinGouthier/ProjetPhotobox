@@ -25,3 +25,24 @@ export interface Links {
     categorie: UrlPhoto;
     comments: UrlPhoto;
 }
+
+export interface ReponseCategorie {
+    type: string;
+    categorie: {
+        id: number;
+        nom: string;
+    };
+}
+
+export interface Commentaire {
+    id: number;
+    titre: string;
+    pseudo: string;
+    content: string;
+    date: string;
+}
+
+export interface ReponseCommentaires {
+    type: string;
+    comments: Commentaire[];
+}
