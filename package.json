@@ -8,6 +8,7 @@
   },
   "type": "module",
   "dependencies": {
+    "handlebars": "^4.7.9",
     "marked": "^17.0.0",
     "typescript": "^5.9.3"
   }
