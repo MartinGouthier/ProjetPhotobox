@@ -5,7 +5,7 @@ const sourceTemplate = `
 <article>
     <h2>{{titre}}</h2>
 
-    <img src="{{url.href}}" alt="Photo de {{titre}}">
+    <img src="https://webetu.iutnc.univ-lorraine.fr{{url.href}}" alt="Photo de {{titre}}">
 
     <ul>
         <li>Type : {{type}}</li>
