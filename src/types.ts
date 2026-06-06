@@ -46,3 +46,11 @@ export interface ReponseCommentaires {
     type: string;
     comments: Commentaire[];
 }
+
+export interface PhotoCollection {
+    type: string
+    size: number
+    photos: {
+        photo: Photo
+    }[];
+}
