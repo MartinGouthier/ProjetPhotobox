@@ -7,7 +7,7 @@ import {API_URL, BASE_URL} from "./config";
 export const load = function (): Promise<Photo[]> {
 
     // Recupere la liste des photos
-    return loadResource("photos").then((photos: PhotoCollection) => {
+    return loadResource(`${API_URL}photos`).then((photos: PhotoCollection) => {
 
         // Tableau final
         let tab : Photo[] = [];
@@ -21,6 +21,7 @@ export const load = function (): Promise<Photo[]> {
                  tab.push(reponse.photo);
                  // Est ce que le tableau sera entièrement rempli avant d'être envoyé?
              })
+             //TODO: y a un problème a fix
          })
         return tab;
 

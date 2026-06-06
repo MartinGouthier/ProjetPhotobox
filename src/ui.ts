@@ -17,10 +17,13 @@ const sourceTemplate = `
 
 const template = Handlebars.compile(sourceTemplate);
 
-export function displayPicture(photo: Photo): void {
+export function displayPicture(photo: Photo): string {
+    /* Question 1 avant modifs
     const conteneur = document.querySelector('#la_photo');
-
     conteneur!.innerHTML = template(photo);
+     */
+    return template(photo);
+
 }
 
 export function displayCategory(categorieData: ReponseCategorie): void {

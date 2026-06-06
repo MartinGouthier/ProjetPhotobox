@@ -2,10 +2,10 @@ import { Photo, ReponsePhoto } from "./types";
 import { BASE_URL, API_URL } from "./config";
 
 export function loadPicture(idPicture: number): Promise<ReponsePhoto> {
-    return loadResource(`photos/${idPicture}`);
+    return loadResource(`${API_URL}photos/${idPicture}`);
 }
 export function loadResource(uri: string): Promise<any> {
-    const urlComplete = `${API_URL}${uri}`;
+    const urlComplete = `${BASE_URL}${uri}`;
     
     return fetch(urlComplete, { credentials: 'include' })
         .then((reponse: Response) => {
