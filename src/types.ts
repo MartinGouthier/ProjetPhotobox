@@ -48,8 +48,14 @@ export interface ReponseCommentaires {
 }
 
 export interface PhotoCollection {
-    type: string
-    size: number
+    type: string;
+    size: number;
+    links: {
+        next?: { href: string };
+        prev?: { href: string };
+        first?: { href: string };
+        last?: { href: string };
+    };
     photos: {
         photo: Photo
     }[];

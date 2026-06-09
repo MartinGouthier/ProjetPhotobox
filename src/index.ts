@@ -1,7 +1,7 @@
 import { loadPicture, loadResource } from "./photoloader";
 import { displayPicture, displayCategory, displayComments } from "./ui";
 import {display_galerie} from "./gallery_ui";
-import {load} from "./gallery";
+import {load, next, prev, first, last} from "./gallery";
 import {Photo} from "./types";
 
 async function getPicture(id: number): Promise<void> {
@@ -19,8 +19,6 @@ async function getPicture(id: number): Promise<void> {
         const com = await loadResource(reponse.links.comments.href);
         displayComments(com.comments);
 
-
-
     } catch (erreur) {
         console.error(`Erreur : ${erreur}`);
     }
@@ -32,10 +30,28 @@ const hashText = window.location.hash.startsWith('#')
  
 const nbr = parseInt(hashText);
 
-//Affichage galerie
+// Affichage galerie initiale
 document.getElementById("galerieBouton")!.addEventListener("click",() => {
     load().then((photos : Photo[])=> {
         display_galerie(photos);
-    })
+    }).catch(console.error);
 });
+
+// Pagination
+document.getElementById("btn-next")!.addEventListener("click", () => {
+    next().then((photos: Photo[]) => display_galerie(photos)).catch(console.error);
+});
+
+document.getElementById("btn-prev")!.addEventListener("click", () => {
+    prev().then((photos: Photo[]) => display_galerie(photos)).catch(console.error);
+});
+
+document.getElementById("btn-first")!.addEventListener("click", () => {
+    first().then((photos: Photo[]) => display_galerie(photos)).catch(console.error);
+});
+
+document.getElementById("btn-last")!.addEventListener("click", () => {
+    last().then((photos: Photo[]) => display_galerie(photos)).catch(console.error);
+});
+
 getPicture(isNaN(nbr) ? 6 : nbr);
