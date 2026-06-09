@@ -1,5 +1,5 @@
+import { BASE_URL } from "./config";
 import {Photo} from "./types";
-import {displayPicture} from "./ui";
 
 
 export const display_galerie = function (galerie : Photo[])  {
@@ -11,7 +11,9 @@ export const display_galerie = function (galerie : Photo[])  {
 
     // On utilise reduce pour accumuler le HTML généré dans une seule chaîne
     const htmlComplet = galerie.reduce((acc, p) => {
-        return acc + displayPicture(p);
-    }, ""); 
+        return acc + `<article data-photoid="${p.id}">
+            <img src="${BASE_URL}${p.url.href}" alt="${p.titre}">
+        </article>`;
+    }, "");
     galeriehtml!.innerHTML = htmlComplet;
 }

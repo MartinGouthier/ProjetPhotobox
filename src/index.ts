@@ -1,8 +1,8 @@
 import { loadPicture, loadResource } from "./photoloader";
 import { displayPicture, displayCategory, displayComments } from "./ui";
-import {display_galerie} from "./gallery_ui";
-import {load, next, prev, first, last} from "./gallery";
-import {Photo} from "./types";
+import { display_galerie } from "./gallery_ui";
+import { load, next, prev, first, last } from "./gallery";
+import { Photo } from "./types";
 
 async function getPicture(id: number): Promise<void> {
     try {
@@ -31,8 +31,8 @@ const hashText = window.location.hash.startsWith('#')
 const nbr = parseInt(hashText);
 
 // Affichage galerie initiale
-document.getElementById("galerieBouton")!.addEventListener("click",() => {
-    load().then((photos : Photo[])=> {
+document.getElementById("galerieBouton")!.addEventListener("click", () => {
+    load().then((photos: Photo[]) => {
         display_galerie(photos);
     }).catch(console.error);
 });
@@ -52,6 +52,17 @@ document.getElementById("btn-first")!.addEventListener("click", () => {
 
 document.getElementById("btn-last")!.addEventListener("click", () => {
     last().then((photos: Photo[]) => display_galerie(photos)).catch(console.error);
+});
+
+// Clic sur une photo de la galerie
+document.getElementById("galerie")!.addEventListener("click", (event: Event) => {
+    const cible = event.target as HTMLElement;
+    const article = cible.closest("article");
+
+    if (article && article.dataset.photoid) {
+        const photoId = parseInt(article.dataset.photoid);
+        getPicture(photoId);
+    }
 });
 
 getPicture(isNaN(nbr) ? 6 : nbr);
