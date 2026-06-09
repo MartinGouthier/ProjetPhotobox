@@ -3,7 +3,7 @@ import { Photo, ReponseCategorie, Commentaire } from './types';
 import {BASE_URL} from "./config";
 
 const sourceTemplate = `
-<article>
+<article data-photoId="{{id}}">
     <h1>Photo : {{id}}</h1>
 
     <img src="${BASE_URL}{{url.href}}" alt="Photo de {{titre}}">
@@ -34,10 +34,13 @@ export function displayCategory(categorieData: ReponseCategorie): void {
 export function displayComments(commentaires: Commentaire[]): void {
     const conteneur = document.querySelector('#les_commentaires')!;
     
-    let html = '';
+    let html = '<h3>Commentaires :</h3><ul>'; 
+    
     for (const c of commentaires) {
         html += `<li>${c.pseudo} : ${c.content}</li>`;
     }
+    
+    html += '</ul>'; 
     
     conteneur.innerHTML = html;
 }

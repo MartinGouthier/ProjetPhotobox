@@ -3,7 +3,6 @@ import { displayPicture, displayCategory, displayComments } from "./ui";
 import {display_galerie} from "./gallery_ui";
 import {load} from "./gallery";
 import {Photo} from "./types";
-import {BASE_URL} from "./config";
 
 async function getPicture(id: number): Promise<void> {
     try {

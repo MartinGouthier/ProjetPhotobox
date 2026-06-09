@@ -14,17 +14,13 @@ export const load = function (): Promise<Photo[]> {
         // Tableau photos incomplètes
         let photosTableau =  photos.photos
 
-        // Recherche de chaque photo avec son identifiant
-         photosTableau.forEach((photo : {photo : Photo}) => {
-             loadPicture(photo.photo.id).then((reponse : ReponsePhoto)=> {
-                 // Ajout dans la liste complète
-                 tab.push(reponse.photo);
-                 // Est ce que le tableau sera entièrement rempli avant d'être envoyé?
-             })
-             //TODO: y a un problème a fix
-         })
-        return tab;
-
-    })
+        // Transformation du tableau d'objets en un tableau de promesses
+        const promesses = photosTableau.map((p: {photo: Photo}) => {
+            return loadPicture(p.photo.id).then((reponse: ReponsePhoto) => reponse.photo);
+        });
+        
+        // Attente de la résolution de toutes les requêtes asynchrones
+        return Promise.all(promesses);
+    });
 
 }
