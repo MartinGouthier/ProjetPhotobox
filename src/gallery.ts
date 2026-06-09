@@ -1,33 +1,29 @@
 import {Photo, ReponsePhoto} from "./types";
 import {PhotoCollection} from "./types";
 import {loadPicture, loadResource} from "./photoloader";
-import {API_URL, BASE_URL} from "./config";
+import {API_URL} from "./config";
 
 let nextUrl: string | undefined;
 let prevUrl: string | undefined;
 let firstUrl: string | undefined;
 let lastUrl: string | undefined;
+let galerieActuelle: Photo[] = [];
 
 const loadPage = function (url: string): Promise<Photo[]> {
-    // Recupere la liste des photos
     return loadResource(url).then((photos: PhotoCollection) => {
-        
-        // sauvegarde des liens de pagination
         nextUrl = photos.links.next?.href;
         prevUrl = photos.links.prev?.href;
         firstUrl = photos.links.first?.href;
         lastUrl = photos.links.last?.href;
 
-        // Tableau photos incomplètes
-        let photosTableau = photos.photos;
-
-        // Transformation du tableau d'objets en un tableau de promesses
-        const promesses = photosTableau.map((p: {photo: Photo}) => {
+        const promesses = photos.photos.map((p: {photo: Photo}) => {
             return loadPicture(p.photo.id).then((reponse: ReponsePhoto) => reponse.photo);
         });
         
-        // Attente de la résolution de toutes les requêtes asynchrones
-        return Promise.all(promesses);
+        return Promise.all(promesses).then((resultat) => {
+            galerieActuelle = resultat;
+            return resultat;
+        });
     });
 };
 
@@ -54,3 +50,5 @@ export const last = function (): Promise<Photo[]> {
     if (!lastUrl) return Promise.reject(new Error("déjà sur la dernière page"));
     return loadPage(lastUrl);
 }
+
+export const getGalerieActuelle = (): Photo[] => galerieActuelle;
